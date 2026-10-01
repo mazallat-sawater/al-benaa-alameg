@@ -1,4 +1,5 @@
-﻿# robots.txt for مؤسسة إبداع المنزل للمقاولات العامة
+﻿
+# robots.txt for مؤسسة البناء العملاق للمقاولات العامة
 
 User-agent: *
 Allow: /
@@ -18,4 +19,4 @@ Allow: /*.svg$
 Allow: /*.ico$
 
 # Sitemap
-Sitemap: https://hsammnwralrfyd-del.github.io/ebdaa-almanzel/sitemap.xml
+Sitemap: https://hsammnwralrfyd-del.github.io/al-benaa-alameg/sitemap.xml

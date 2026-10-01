@@ -1,230 +1,215 @@
-﻿import { lazy, Suspense } from "react";
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import {
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-} from "react-router-dom";
-import FloatingButtons from "./components/FloatingButtons";
+﻿
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-// ===============================
-// الصفحة الرئيسية
-// ===============================
-const Index = lazy(() => import("./pages/Index"));
-const NotFound = lazy(() => import("./pages/NotFound"));
+import Index from "./pages/Index";
+import NotFound from "./pages/NotFound";
+import ServicePageTemplate from "./components/ServicePageTemplate";
 
-// ===============================
-// خدمات إبداع المنزل - 12 خدمة
-// ===============================
+import FencingPage from "./pages/FencingPage";
+import WarehousesPage from "./pages/WarehousesPage";
+import LandscapingPage from "./pages/LandscapingPage";
+import StructuralCanopiesPage from "./pages/StructuralCanopiesPage";
 
-// 1 - مظلات شد إنشائي
-const StructuralCanopiesPage = lazy(
-  () => import("./pages/StructuralCanopiesPage")
-);
+import SchoolCanopiesPage from "./pages/SchoolCanopiesPage";
+import LaserCutCanopiesPage from "./pages/LaserCutCanopiesPage";
+import ArchCanopiesPage from "./pages/ArchCanopiesPage";
+import GarageCanopiesPage from "./pages/GarageCanopiesPage";
+import RoofInsulationPage from "./pages/RoofInsulationPage";
+import WaterThermalInsulationPage from "./pages/WaterThermalInsulationPage";
+import CladdingCanopiesPage from "./pages/CladdingCanopiesPage";
+import PyramidalCanopiesPage from "./pages/PyramidalCanopiesPage";
 
-// 2 - مظلات مدارس
-const SchoolCanopiesPage = lazy(
-  () => import("./pages/SchoolCanopiesPage")
-);
+import { servicesById } from "./config/services";
 
-// 3 - مظلات قص ليزر
-const LaserCutCanopiesPage = lazy(
-  () => import("./pages/LaserCutCanopiesPage")
-);
+const basename = "/al-benaa-alameg/";
 
-// 4 - مظلات قوس
-const ArchCanopiesPage = lazy(
-  () => import("./pages/ArchCanopiesPage")
-);
+export default function App() {
+  return (
+    <BrowserRouter basename={basename}>
+      <Routes>
+        <Route path="/" element={<Index />} />
 
-// 5 - مظلات كراج
-const GarageCanopiesPage = lazy(
-  () => import("./pages/GarageCanopiesPage")
-);
+        <Route
+          path="/canopies"
+          element={
+            <ServicePageTemplate service={servicesById.canopies} />
+          }
+        />
 
-// 6 - هناجر ومستودعات
-const WarehousesPage = lazy(
-  () => import("./pages/WarehousesPage")
-);
+        <Route path="/fencing" element={<FencingPage />} />
 
-// 7 - سواتر
-const FencingPage = lazy(
-  () => import("./pages/FencingPage")
-);
+        <Route path="/warehouses" element={<WarehousesPage />} />
 
-// 8 - عوازل الأسطح
-const RoofInsulationPage = lazy(
-  () => import("./pages/RoofInsulationPage")
-);
-
-// 9 - العزل المائي والحراري
-const WaterThermalInsulationPage = lazy(
-  () => import("./pages/WaterThermalInsulationPage")
-);
-
-// 10 - مظلات كلادينج
-const CladdingCanopiesPage = lazy(
-  () => import("./pages/CladdingCanopiesPage")
-);
-
-// 11 - مظلات هرمية
-const PyramidalCanopiesPage = lazy(
-  () => import("./pages/PyramidalCanopiesPage")
-);
-
-// 12 - تنسيق حدائق
-const LandscapingPage = lazy(
-  () => import("./pages/LandscapingPage")
-);
-
-// ===============================
-// React Query
-// ===============================
-
-const queryClient = new QueryClient();
-
-// ===============================
-// شاشة التحميل
-// ===============================
-
-const LoadingFallback = () => (
-  <div
-    dir="rtl"
-    className="flex min-h-screen items-center justify-center bg-background"
-  >
-    <div className="text-center">
-      <div className="mx-auto mb-4 h-16 w-16 animate-spin rounded-full border-4 border-primary border-t-transparent" />
-
-      <p className="text-lg text-muted-foreground">
-        جاري التحميل...
-      </p>
-    </div>
-  </div>
-);
-
-// ===============================
-// التطبيق
-// ===============================
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-
-      <BrowserRouter basename="/ebdaa-almanzel/">
-        <Suspense fallback={<LoadingFallback />}>
-          <Routes>
-
-            {/* =========================
-                الصفحة الرئيسية
-            ========================= */}
-
-            <Route
-              path="/"
-              element={<Index />}
+        <Route
+          path="/palace-canopies"
+          element={
+            <ServicePageTemplate
+              service={servicesById.palaceCanopies}
             />
+          }
+        />
 
-            {/* =========================
-                خدمات إبداع المنزل - 12 خدمة
-            ========================= */}
-
-            {/* 1 - مظلات شد إنشائي */}
-            <Route
-              path="/structural-canopies"
-              element={<StructuralCanopiesPage />}
+        <Route
+          path="/pool-canopies"
+          element={
+            <ServicePageTemplate
+              service={servicesById.poolCanopies}
             />
+          }
+        />
 
-            {/* 2 - مظلات مدارس */}
-            <Route
-              path="/school-canopies"
-              element={<SchoolCanopiesPage />}
+        <Route
+          path="/structural-canopies"
+          element={<StructuralCanopiesPage />}
+        />
+
+        <Route
+          path="/pergolas"
+          element={
+            <ServicePageTemplate service={servicesById.pergolas} />
+          }
+        />
+
+        <Route
+          path="/majalis"
+          element={
+            <ServicePageTemplate service={servicesById.majalis} />
+          }
+        />
+
+        <Route
+          path="/roofing-tiles"
+          element={
+            <ServicePageTemplate
+              service={servicesById.roofingTiles}
             />
+          }
+        />
 
-            {/* 3 - مظلات قص ليزر */}
-            <Route
-              path="/laser-cut-canopies"
-              element={<LaserCutCanopiesPage />}
+        <Route
+          path="/fabric-houses"
+          element={
+            <ServicePageTemplate
+              service={servicesById.fabricHouses}
             />
+          }
+        />
 
-            {/* 4 - مظلات قوس */}
-            <Route
-              path="/arch-canopies"
-              element={<ArchCanopiesPage />}
+        <Route
+          path="/sandwich-warehouses"
+          element={
+            <ServicePageTemplate
+              service={servicesById.sandwichWarehouses}
             />
+          }
+        />
 
-            {/* 5 - مظلات كراج */}
-            <Route
-              path="/garage-canopies"
-              element={<GarageCanopiesPage />}
+        <Route
+          path="/building-fencing"
+          element={
+            <ServicePageTemplate
+              service={servicesById.buildingFencing}
             />
+          }
+        />
 
-            {/* 6 - هناجر ومستودعات */}
-            <Route
-              path="/warehouses"
-              element={<WarehousesPage />}
+        <Route
+          path="/railings"
+          element={
+            <ServicePageTemplate service={servicesById.railings} />
+          }
+        />
+
+        <Route
+          path="/aluminum"
+          element={
+            <ServicePageTemplate service={servicesById.aluminum} />
+          }
+        />
+
+        <Route
+          path="/colored-wood"
+          element={
+            <ServicePageTemplate
+              service={servicesById.coloredWood}
             />
+          }
+        />
 
-            {/* 7 - سواتر */}
-            <Route
-              path="/fencing"
-              element={<FencingPage />}
+        <Route
+          path="/painting"
+          element={
+            <ServicePageTemplate service={servicesById.painting} />
+          }
+        />
+
+        <Route
+          path="/waterproofing"
+          element={
+            <ServicePageTemplate
+              service={servicesById.waterproofing}
             />
+          }
+        />
 
-            {/* 8 - عوازل الأسطح */}
-            <Route
-              path="/roof-insulation"
-              element={<RoofInsulationPage />}
+        <Route
+          path="/thermal-insulation"
+          element={
+            <ServicePageTemplate
+              service={servicesById.thermalInsulation}
             />
+          }
+        />
 
-            {/* 9 - العزل المائي والحراري */}
-            <Route
-              path="/water-thermal-insulation"
-              element={<WaterThermalInsulationPage />}
-            />
+        <Route
+          path="/landscaping"
+          element={<LandscapingPage />}
+        />
 
-            {/* 10 - مظلات كلادينج */}
-            <Route
-              path="/cladding-canopies"
-              element={<CladdingCanopiesPage />}
-            />
+        {/* الصفحات القديمة الموجودة في المشروع */}
+        <Route
+          path="/school-canopies"
+          element={<SchoolCanopiesPage />}
+        />
 
-            {/* 11 - مظلات هرمية */}
-            <Route
-              path="/pyramidal-canopies"
-              element={<PyramidalCanopiesPage />}
-            />
+        <Route
+          path="/laser-cut-canopies"
+          element={<LaserCutCanopiesPage />}
+        />
 
-            {/* 12 - تنسيق حدائق */}
-            <Route
-              path="/landscaping"
-              element={<LandscapingPage />}
-            />
+        <Route
+          path="/arch-canopies"
+          element={<ArchCanopiesPage />}
+        />
 
-            {/* =========================
-                أي رابط غير موجود
-            ========================= */}
+        <Route
+          path="/garage-canopies"
+          element={<GarageCanopiesPage />}
+        />
 
-            <Route
-              path="*"
-              element={<NotFound />}
-            />
+        <Route
+          path="/roof-insulation"
+          element={<RoofInsulationPage />}
+        />
 
-          </Routes>
-        </Suspense>
+        <Route
+          path="/water-thermal-insulation"
+          element={<WaterThermalInsulationPage />}
+        />
 
-        {/* أزرار الاتصال العائمة */}
-        <FloatingButtons />
+        <Route
+          path="/cladding-canopies"
+          element={<CladdingCanopiesPage />}
+        />
 
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+        <Route
+          path="/pyramidal-canopies"
+          element={<PyramidalCanopiesPage />}
+        />
 
-export default App;
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+

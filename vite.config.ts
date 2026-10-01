@@ -5,18 +5,24 @@ import { componentTagger } from "lovable-tagger";
 import { copyFileSync } from "fs";
 
 // https://vitejs.dev/config/
+
 export default defineConfig(({ mode }) => ({
-  base: "/ebdaa-almanzel/",
+  base: "/al-benaa-alameg/",
+
   server: {
     host: "::",
     port: 8080,
   },
+
   plugins: [
     react(),
+
     mode === "development" && componentTagger(),
+
     // Copy server config files to dist after build
     {
       name: "copy-server-config",
+
       closeBundle() {
         if (mode === "production") {
           try {
@@ -30,27 +36,34 @@ export default defineConfig(({ mode }) => ({
       },
     },
   ].filter(Boolean),
+
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
+
   build: {
     cssCodeSplit: true,
+
     minify: mode === "production" ? "esbuild" : false,
+
     rollupOptions: {
       output: {
         manualChunks: {
           "react-vendor": ["react", "react-dom", "react-router-dom"],
+
           "ui-vendor": [
             "@radix-ui/react-dialog",
             "@radix-ui/react-dropdown-menu",
             "@radix-ui/react-accordion",
           ],
+
           "query-vendor": ["@tanstack/react-query"],
         },
       },
     },
+
     chunkSizeWarningLimit: 1000,
   },
 }));
