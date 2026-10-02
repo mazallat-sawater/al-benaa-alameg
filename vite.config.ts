@@ -2,9 +2,37 @@
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
-import { copyFileSync } from "fs";
+import { copyFileSync, mkdirSync } from "fs";
 
-// https://vitejs.dev/config/
+const routes = [
+  "canopies",
+  "fencing",
+  "warehouses",
+  "palace-canopies",
+  "pool-canopies",
+  "structural-canopies",
+  "pergolas",
+  "majalis",
+  "roofing-tiles",
+  "fabric-houses",
+  "sandwich-warehouses",
+  "building-fencing",
+  "railings",
+  "aluminum",
+  "colored-wood",
+  "painting",
+  "waterproofing",
+  "thermal-insulation",
+  "landscaping",
+  "school-canopies",
+  "laser-cut-canopies",
+  "arch-canopies",
+  "garage-canopies",
+  "roof-insulation",
+  "water-thermal-insulation",
+  "cladding-canopies",
+  "pyramidal-canopies",
+];
 
 export default defineConfig(({ mode }) => ({
   base: "/al-benaa-alameg/",
@@ -19,23 +47,56 @@ export default defineConfig(({ mode }) => ({
 
     mode === "development" && componentTagger(),
 
-    // Copy server config files to dist after build
     {
-      name: "copy-server-config",
+      name: "generate-route-pages",
 
       closeBundle() {
-        if (mode === "production") {
-          try {
-            copyFileSync("public/.htaccess", "dist/.htaccess");
-            copyFileSync("public/web.config", "dist/web.config");
+        if (mode !== "production") return;
 
-            // GitHub Pages SPA fallback:
-            // Use index.html as the 404 fallback so BrowserRouter
-            // can handle direct routes such as /canopies.
-            copyFileSync("dist/index.html", "dist/404.html");
-          } catch (err) {
-            console.warn("Could not copy server config files:", err);
+        try {
+          const indexFile = path.resolve("dist/index.html");
+
+          for (const route of routes) {
+            const routeDir = path.resolve("dist", route);
+
+            mkdirSync(routeDir, { recursive: true });
+
+            copyFileSync(
+              indexFile,
+              path.join(routeDir, "index.html")
+            );
           }
+
+          console.log(
+            `Generated ${routes.length} static route pages for GitHub Pages.`
+          );
+
+          // Keep GitHub Pages SPA fallback
+          copyFileSync(
+            path.resolve("public/404.html"),
+            path.resolve("dist/404.html")
+          );
+
+          // Keep optional server configuration files if they exist
+          try {
+            copyFileSync(
+              path.resolve("public/.htaccess"),
+              path.resolve("dist/.htaccess")
+            );
+          } catch {}
+
+          try {
+            copyFileSync(
+              path.resolve("public/web.config"),
+              path.resolve("dist/web.config")
+            );
+          } catch {}
+        } catch (error) {
+          console.error(
+            "Failed to generate static route pages:",
+            error
+          );
+          throw error;
         }
       },
     },
@@ -55,7 +116,11 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks: {
-          "react-vendor": ["react", "react-dom", "react-router-dom"],
+          "react-vendor": [
+            "react",
+            "react-dom",
+            "react-router-dom",
+          ],
 
           "ui-vendor": [
             "@radix-ui/react-dialog",
