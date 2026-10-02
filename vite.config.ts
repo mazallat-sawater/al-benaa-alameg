@@ -28,7 +28,11 @@ export default defineConfig(({ mode }) => ({
           try {
             copyFileSync("public/.htaccess", "dist/.htaccess");
             copyFileSync("public/web.config", "dist/web.config");
-            copyFileSync("public/404.html", "dist/404.html");
+
+            // GitHub Pages SPA fallback:
+            // Use index.html as the 404 fallback so BrowserRouter
+            // can handle direct routes such as /canopies.
+            copyFileSync("dist/index.html", "dist/404.html");
           } catch (err) {
             console.warn("Could not copy server config files:", err);
           }
