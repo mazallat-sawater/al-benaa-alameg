@@ -17,7 +17,7 @@ export const client = {
 
   phoneIntl: "966507111345",
 
-  siteUrl: "https://hsammnwralrfyd-del.github.io/al-benaa-alameg/",
+  siteUrl: "https://mazallat-sawater.github.io/al-benaa-alameg/",
 
   instagram: "",
 

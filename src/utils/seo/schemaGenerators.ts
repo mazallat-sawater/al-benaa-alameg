@@ -2,7 +2,7 @@
 import { KeywordResearch } from "@/types/seo.types";
 
 const SITE_URL =
-  "https://hsammnwralrfyd-del.github.io/al-benaa-alameg/";
+  "https://mazallat-sawater.github.io/al-benaa-alameg/";
 
 export const generateLocalBusinessSchema = (
   _pageData: unknown,

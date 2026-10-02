@@ -1,6 +1,6 @@
 ﻿
 const SITE_URL =
-  "https://hsammnwralrfyd-del.github.io/al-benaa-alameg/";
+  "https://mazallat-sawater.github.io/al-benaa-alameg/";
 
 const serviceUrl = (path: string) => `${SITE_URL}${path}`;
 

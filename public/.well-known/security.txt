@@ -1,4 +1,4 @@
-﻿Contact: https://hsammnwralrfyd-del.github.io/al-benaa-alameg/
+﻿Contact: https://mazallat-sawater.github.io/al-benaa-alameg/
 Expires: 2027-09-18T00:00:00Z
 Preferred-Languages: ar, en
-Canonical: https://hsammnwralrfyd-del.github.io/al-benaa-alameg/.well-known/security.txt
+Canonical: https://mazallat-sawater.github.io/al-benaa-alameg/.well-known/security.txt
